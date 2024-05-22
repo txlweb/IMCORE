@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="textreader-libcomic">
+    <output-path>$PROJECT_DIR$/out/artifacts/textreader_libcomic</output-path>
+    <root id="archive" name="textreader-libcomic.jar">
+      <element id="module-output" name="IMCORE" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
