@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5cab1c67-66f5-4762-95b4-474ec4817563" name="更改" comment="...">
-      <change afterPath="$PROJECT_DIR$/build.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/load.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/read.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/HTTP_SERVER.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/textreader/comic/Unzipper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/settings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/textreader/comic/ComicMake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/textreader/comic/ComicMake.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/textreader/comic/ComicObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/textreader/comic/ComicObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/settings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +23,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -130,7 +124,7 @@
       <workItem from="1716598120856" duration="6978000" />
       <workItem from="1717333055176" duration="3759000" />
       <workItem from="1717418073521" duration="5826000" />
-      <workItem from="1717504767048" duration="2766000" />
+      <workItem from="1717504767048" duration="3407000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <option name="closed" value="true" />
@@ -140,11 +134,38 @@
       <option name="project" value="LOCAL" />
       <updated>1716373888655</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="...">
+      <option name="closed" value="true" />
+      <created>1717507556022</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1717507556023</updated>
+    </task>
+    <task id="LOCAL-00003" summary="...">
+      <option name="closed" value="true" />
+      <created>1717508167905</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1717508167905</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="..." />
