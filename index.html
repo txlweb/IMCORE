@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comic Reader [BETA]1.0</title>
+</head>
+<body>
+<script>
+    document.body.onload = function (){
+        load();
+    }
+    function load(){
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/sync", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var jsonData = JSON.parse(xhr.responseText);
+                a = ""
+                console.log(jsonData)
+                for (let i = 0; i < jsonData.list.length; i++) {
+                    a=a+"<a href=\"/read.html?"+jsonData.list[i]+"\"><img src=\"/get_ic?"+jsonData.list[i]+"\" style='width: 180px;max-width: 180px;height: 255px;max-height: 255px;'/></a>";
+                }
+                document.getElementById("ls").innerHTML = a;
+            }
+        }
+        xhr.send();
+    }
+</script>
+<h1>Comic list</h1>
+<a href="/build.html">执行目录扫描</a>
+<div id="ls">
+
+</div>
+</body>
+</html>

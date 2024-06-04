@@ -1,0 +1,35 @@
+<meta charset="UTF-8">
+<div class="center-container">
+    <img src="/bic.jpg" alt="SYNCING..." class="center-image">
+    <p class="center-text">正在扫描压缩文件...</p>
+</div>
+<style>
+    .center-container {
+        display: flex;
+        flex-direction: column; /* 设置为列布局 */
+        justify-content: center; /* 垂直居中 */
+        align-items: center; /* 水平居中（在列布局中，这实际上不会影响图片或文字的水平位置） */
+        height: 100%; /* 使得容器占据整个视口的高度 */
+        text-align: center; /* 使文字在图片下方居中 */
+        margin: 0; /* 去除任何可能的边距 */
+    }
+
+    .center-image {
+        width: 40%; /* 防止图片过大 */
+        height: auto; /* 保持图片的原始比例 */
+    }
+
+    .center-text {
+        margin-top: 10px; /* 根据需要调整图片和文字之间的间距 */
+    }
+</style>
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/build", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.location.href = "/"
+        }
+    }
+    xhr.send();
+</script>

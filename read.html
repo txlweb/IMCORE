@@ -1,0 +1,214 @@
+
+<meta charset="UTF-8">
+<!--<input type="text" value="R.CEIP" id="fl">-->
+
+<!--<button onclick="load(document.getElementById('fl').value)">LOAD AS DISK</button>-->
+<footer class="footer">
+
+    <div class="footer-item" onclick="document.getElementById('lst_ui').style.display = 'block';document.getElementById('ls_bg').style.display = 'block';">[目录]</div>
+    <!--<div class="footer-item" onclick="if(document.getElementById('lst_ui').style.background == 'black'){document.getElementById('lst_ui').style.background = 'white';document.getElementById('lst_ui').style.color = 'black';this.innerText='关灯'}else{document.getElementById('lst_ui').style.background = 'black';document.getElementById('lst_ui').style.color = 'white';this.innerText='开灯'}">关灯</div>
+    <div class="footer-item">重载</div>-->
+    <div>power by. IDlike</div>
+    <div>[BETA] 1.0</div>
+</footer>
+<div id="ls_bg"></div>
+<div id="lst_ui">
+    <div id="info"></div>
+    <h1>章节列表</h1>
+    <div id="list"></div>
+</div>
+<div id="read">
+
+</div>
+<div id="tools">
+    <pointer id="srollpoin" max="0" now="0"></pointer>
+</div>
+<script>
+    var frame_data;
+    document.getElementById("ls_bg").addEventListener("click",function (){
+        document.getElementById("lst_ui").style.display = "none";
+        document.getElementById("ls_bg").style.display = "none";
+    })
+    function load(fn){
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/get_index?"+fn, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var jsonData = JSON.parse(xhr.responseText);
+                // 在这里格式化jsonData
+                console.log(jsonData); // 打印原始JSON数据
+                frame_data = jsonData;
+                //显示info
+                const l = document.getElementById("info")
+                l.innerHTML = ""
+                var p = ""
+                p=p+"<img src='/get_ic?"+fn+"' style='width: 180px;max-width: 180px;height: 255px;max-height: 255px;'>"
+                p=p+"<div style='display: flex;align-items: center;flex-direction: column;'><h3>"+frame_data.title+"</h3>"
+                p=p+"<a>作者:"+frame_data.author+"</a>"
+                p=p+"<a>简介"+frame_data.info+"</a></div>"
+                l.innerHTML = p;
+                const ls_d = document.getElementById("list");
+                ls_d.innerHTML = ""
+                for (let i = 0; i < frame_data.data.length; i++) {
+                    ls_d.innerHTML=ls_d.innerHTML+"<a class='list_btn' onclick=\"loadd_page('"+i+"')\">"+frame_data.data[i].title+"</a>"
+                }
+            }
+        };
+        xhr.send();
+    }
+    function loadd_page(id){
+
+        const dis = document.getElementById("read");
+        dis.innerHTML=""
+        add = ""
+        for (let i = 0; i < frame_data.data[id].data.length; i++) {
+            if(i == 0){
+                add=add+"<img res=\""+frame_data.data[id].data[i]+"\" src=\""+frame_data.data[id].data[i]+"\"/>"
+            }else{
+                add=add+"<img res=\""+frame_data.data[id].data[i]+"\" src='/bic.jpg'/>"
+            }
+
+            console.log(i)
+        }
+        dis.innerHTML = add;
+    }
+    function loadimages(){
+        var childrens = document.getElementById("read").children;
+        var id = 0;
+        var lst = true;
+        for (let i = 0; i < childrens.length; i++) {
+            if (childrens[i].tagName == 'IMG' || childrens[i].tagName == 'img') {
+                id++;
+                if (childrens[i].offsetTop < document.body.scrollTop + document.body.clientHeight && childrens[i].offsetTop > document.body.scrollTop) {
+                    childrens[i].src = childrens[i].getAttribute('res');
+                    document.getElementById("srollpoin").setAttribute("now", i);
+                }
+            }
+        }
+        document.getElementById("srollpoin").setAttribute("max",id);
+    }
+
+    function InitPoin(main) {
+        if (!main)return;
+        var max = parseInt(main.getAttribute('max')); //获取自定义参数-max(最大值)
+        var now = parseInt(main.getAttribute('now')); //获取自定义参数-now(当前值)
+        main.innerHTML = '<div class="poinmain" id="poinmain"></div>'; //向自定义标签内插入进度条(图1)
+        var poinbody = document.getElementById('poinmain'); //获取进度条对象
+        poinbody.style.width = main.clientWidth * (now / max); //设置进度条宽度
+        var poins = now / max * 100; //计算百分比
+        poinbody.innerHTML = poins.toFixed(2) + '%'; //显示进度
+        main.innerHTML = main.innerHTML + '<t class="pointext">' + now + '/' + max + '</t>';
+        //注册监听事件
+
+    }
+    window.onload = function (){Init();};
+    function Init(){
+        document.addEventListener('scroll',function() {loadimages()});
+        document.addEventListener('scroll',function() {InitPoin(document.getElementById("srollpoin"));});
+        //init url inner file
+        const url = window.location.href;
+        console.log(url.split("?")[1])
+        load(url.split("?")[1]);
+    }
+</script>
+<style type="text/css">
+    *{
+        font-size: 40px;
+    }
+    #ls_bg{
+        position: fixed; /* 固定在视口底部 */
+        left: 0;
+        width: 100%; /* 宽度占满整个视口 */
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+    }
+    .list_btn{
+        width: 100%;
+        border: #fe620d 1px solid;
+        display: block;
+    }
+    .list_btn:hover{
+        background: #fe620d;
+    }
+    #info{
+        display: flex;
+    }
+    body{
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    pointer{
+        display: block;
+        border-radius: 50px;
+        padding-right: 5px;
+    }
+
+    .pointext{
+        position: relative;
+        display: block;
+        top: -20px;
+        text-align: right;
+
+    }
+    .poinmain{
+        background: #fe620d;
+    }
+    #tools{
+        position: fixed;
+        top: 0;
+        padding: 5px;
+        width: 100%;
+    }
+    img{
+        max-width: 100%;
+        width: 100%;
+    }
+    #lst_ui{
+        position: fixed; /* 固定在视口底部 */
+        left: 0;
+        bottom: 5%;
+        height: 60%;
+        padding: 5px;
+        width: 100%; /* 宽度占满整个视口 */
+        background: white;
+        overflow: scroll;
+    }
+    /* 底部栏样式 */
+    .footer {
+        display: flex;
+        justify-content: space-between; /* 子元素横向均匀分布 */
+        align-items: center; /* 子元素垂直居中 */
+        position: fixed; /* 固定在视口底部 */
+        left: 0;
+        bottom: 0;
+        height: 5%;
+        width: 100%; /* 宽度占满整个视口 */
+        background-color: black; /* 底色为黑色 */
+        color: white; /* 文本颜色为白色（可选） */
+        padding: 10px; /* 适当的内边距（可选） */
+        box-sizing: border-box; /* 包含padding和border在width内 */
+    }
+    .color_change {
+        background-color: black;
+        animation: rainbow 2s infinite;
+    }
+    @keyframes rainbow {
+        0% { background-color: red; }
+        20% { background-color: orange; }
+        40% { background-color: yellow; }
+        60% { background-color: green; }
+        80% { background-color: blue; }
+        100% { background-color: indigo; }
+    }
+    .color_change_text {
+        animation: rainbow_text 2s infinite;
+    }
+    @keyframes rainbow_text {
+        0% { color: red; }
+        20% { color: orange; }
+        40% { color: yellow; }
+        60% { color: green; }
+        80% { color: blue; }
+        100% { color: indigo; }
+    }
+</style>

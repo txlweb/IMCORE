@@ -28,6 +28,52 @@ public class ComicMake {
         }
         return new ArrayList<>();
     }
+
+    /**
+     * @param save_to 保存位置
+     * @param zip_file 压缩包文件(必修直接是图片.不然不能扫描)
+     * @param run_path 如果在Android中必须设定为程序内部/外部路径,win下不必要
+     * @return 是否成功
+     */
+    public static boolean auto_make(String save_to, String zip_file,String run_path){
+        File tmp;
+        if(run_path != null){
+            tmp = new File(run_path+"/tmp");
+        }else {
+            tmp = new File("tmp");
+        }
+        if(tmp.isDirectory()) deleteFileByIO(tmp.getPath());
+        System.out.println(tmp.getPath());
+        tmp.mkdir();
+        try {
+            Unzipper.unzip(zip_file, tmp.getPath());
+            List<String> fls = Dir_sync(tmp.getPath());
+            make(save_to,fls, fls.get(0),"auto make file","idlike","imcore je *power by idlike",new ArrayList<>());
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+    public static void deleteFileByIO(String filePath) {
+        File file = new File(filePath);
+        File[] list = file.listFiles();
+        if (list != null) {
+            for (File temp : list) {
+                deleteFileByIO(temp.getAbsolutePath());
+            }
+        }
+        file.delete();
+    }
+    /**
+     * @param save_to 保存位置
+     * @param img_dir 图片列表(顺序)
+     * @param ic_img_dir 图标
+     * @param title 标题
+     * @param author 作者
+     * @param profile 简介
+     * @param chapter 章节列表(new Array()为生成一整个)
+     * @return 是否成功
+     */
     //chapter [NAME|IMG_SIZE (if null,create all in one chapter)
     public static boolean make(String save_to, List<String> img_dir, String ic_img_dir, String title, String author, String profile, List<String> chapter){
         try{
