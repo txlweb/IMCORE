@@ -6,23 +6,54 @@ import java.nio.file.*;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ComicMake {
+    
     public static String fileToBase64(String filePath) throws IOException {
         byte[] fileContent = Files.readAllBytes(Paths.get(filePath));
         return Base64.getEncoder().encodeToString(fileContent);
     }
     public static List<String> Dir_sync(String dir){
-        try {
-            return Files.walk(Paths.get(dir))
-                    .filter(Files::isRegularFile)
-                    .map(Path::toAbsolutePath)
-                    .map(Path::toString)
-                    .collect(Collectors.toList());
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(dir))) {
+            List<Path> files = new ArrayList<>();
+            for (Path file : stream) {
+                if (Files.isRegularFile(file)) { // 只添加文件，不包括子目录
+                    files.add(file);
+                }
+            }
+
+            // 使用自定义比较器按照文件名中的数字排序
+            Collections.sort(files, new Comparator<Path>() {
+                @Override
+                public int compare(Path o1, Path o2) {
+                    String fileName1 = o1.getFileName().toString();
+                    String fileName2 = o2.getFileName().toString();
+
+                    // 使用正则表达式提取文件名中的数字部分并进行比较
+                    // 假设文件名格式如 "file1.txt", "file10.txt", "file2.txt"
+                    Matcher matcher1 = Pattern.compile("\\d+").matcher(fileName1);
+                    Matcher matcher2 = Pattern.compile("\\d+").matcher(fileName2);
+
+                    if (matcher1.find() && matcher2.find()) {
+                        int num1 = Integer.parseInt(matcher1.group());
+                        int num2 = Integer.parseInt(matcher2.group());
+                        return Integer.compare(num1, num2);
+                    }
+
+                    // 如果文件名中没有数字，或者解析数字失败，则按字符串顺序比较
+                    return fileName1.compareTo(fileName2);
+                }
+            });
+            List<String> r = new ArrayList<>();
+            // 打印排序后的文件名
+            for (Path file : files) {
+                r.add(file.toAbsolutePath().toString());
+            }
+            return r;
         } catch (IOException e) {
             e.printStackTrace();
         }

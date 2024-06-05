@@ -11,8 +11,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static com.textreader.comic.ComicMake.deleteFileByIO;
 
 public class HTTP_SERVER {
     public static boolean run_lock = true;
@@ -166,6 +170,53 @@ class RequestHandler implements Runnable {
                 sendText(out,"build");
                 return;
             }
+            if(path.contains("/io/unpk")) {
+                String[] a = URLDecoder.decode(path, String.valueOf(StandardCharsets.UTF_8)).split("\\?");
+                a = a[1].split("&");
+                String r ="{\"files\":[";
+                try {
+                    deleteFileByIO(new File(settings.tmp_path+"/tmp").getAbsolutePath());
+                    List<String> filePaths = Files.walk(Paths.get(settings.tmp_path+"/tmp"))
+                            .filter(Files::isRegularFile) // 过滤出文件，排除目录
+                            .map(Path::toAbsolutePath) // 转换为绝对路径
+                            .map(Path::toString) // 转换为字符串
+                            .collect(Collectors.toList()); // 收集到列表中
+                    for (int i = 0; i < filePaths.size(); i++) {
+                        r=r+"\""+filePaths.get(i)+"\",";
+                    }
+                    r=r.substring(0,r.length()-1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                r=r+"]}";
+                sendText(out,r);
+                return;
+            }
+            if(path.contains("/io/pkg")) {
+                //title&anu&tip&ic&
+                String[] a = URLDecoder.decode(path, String.valueOf(StandardCharsets.UTF_8)).split("\\?");
+                a = a[1].split("&");
+//                形参:
+//                save_to – 保存位置 img_dir – 图片列表(顺序) ic_img_dir – 图标 title – 标题 author – 作者 profile – 简介 chapter – 章节列表(new Array()为生成一整个)
+//                返回值:
+//                是否成功
+                List<String> s = Arrays.asList(a[0].split("\\|"));
+                if(ComicMake.make(
+                        settings.sync_path+"/"+UUID.randomUUID().toString()+".CEIP",
+                        s,s.get(Integer.parseInt(a[1])),
+                        a[2],a[3],a[4],Arrays.asList(a[5].split("\\|")))){
+                    sendText(out,"OK");
+                    return;
+                }
+                sendText(out,"ERROR");
+                return;
+            }
+            if(path.contains("/io/rdtmp")) {
+                //title&anu&tip&ic&
+                String[] a = URLDecoder.decode(path, String.valueOf(StandardCharsets.UTF_8)).split("\\?");
+                sendResponse(out,200, "OK","text/html",readBytes(new File(settings.tmp_path+"/tmp/"+a[1])));
+                return;
+            }
             if(path.contains("/sync")) {
                 String r = "{\"list\":[";
                 try {
@@ -199,6 +250,10 @@ class RequestHandler implements Runnable {
             }
             if(path.contains("/read.html")) {
                 sendResponse(out,200, "OK","text/html",readBytes(new File("read.html")));
+                return;
+            }
+            if(path.contains("/make.html")) {
+                sendResponse(out,200, "OK","text/html",readBytes(new File("make.html")));
                 return;
             }
             if(path.contains("/bic.jpg")) {
