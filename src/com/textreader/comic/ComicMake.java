@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ComicMake {
-    
+
     public static String fileToBase64(String filePath) throws IOException {
         byte[] fileContent = Files.readAllBytes(Paths.get(filePath));
         return Base64.getEncoder().encodeToString(fileContent);
