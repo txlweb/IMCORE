@@ -27,26 +27,23 @@ public class ComicMake {
             }
 
             // 使用自定义比较器按照文件名中的数字排序
-            Collections.sort(files, new Comparator<Path>() {
-                @Override
-                public int compare(Path o1, Path o2) {
-                    String fileName1 = o1.getFileName().toString();
-                    String fileName2 = o2.getFileName().toString();
+            files.sort((o1, o2) -> {
+                String fileName1 = o1.getFileName().toString();
+                String fileName2 = o2.getFileName().toString();
 
-                    // 使用正则表达式提取文件名中的数字部分并进行比较
-                    // 假设文件名格式如 "file1.txt", "file10.txt", "file2.txt"
-                    Matcher matcher1 = Pattern.compile("\\d+").matcher(fileName1);
-                    Matcher matcher2 = Pattern.compile("\\d+").matcher(fileName2);
+                // 使用正则表达式提取文件名中的数字部分并进行比较
+                // 假设文件名格式如 "file1.txt", "file10.txt", "file2.txt"
+                Matcher matcher1 = Pattern.compile("\\d+").matcher(fileName1);
+                Matcher matcher2 = Pattern.compile("\\d+").matcher(fileName2);
 
-                    if (matcher1.find() && matcher2.find()) {
-                        int num1 = Integer.parseInt(matcher1.group());
-                        int num2 = Integer.parseInt(matcher2.group());
-                        return Integer.compare(num1, num2);
-                    }
-
-                    // 如果文件名中没有数字，或者解析数字失败，则按字符串顺序比较
-                    return fileName1.compareTo(fileName2);
+                if (matcher1.find() && matcher2.find()) {
+                    int num1 = Integer.parseInt(matcher1.group());
+                    int num2 = Integer.parseInt(matcher2.group());
+                    return Integer.compare(num1, num2);
                 }
+
+                // 如果文件名中没有数字，或者解析数字失败，则按字符串顺序比较
+                return fileName1.compareTo(fileName2);
             });
             List<String> r = new ArrayList<>();
             // 打印排序后的文件名

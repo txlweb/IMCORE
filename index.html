@@ -10,15 +10,16 @@
         load();
     }
     function load(){
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         xhr.open("GET", "/sync", true);
         xhr.onreadystatechange = function () {
+            var a;
             if (xhr.readyState === 4 && xhr.status === 200) {
-                var jsonData = JSON.parse(xhr.responseText);
+                let jsonData = JSON.parse(xhr.responseText);
                 a = ""
                 console.log(jsonData)
                 for (let i = 0; i < jsonData.list.length; i++) {
-                    a=a+"<a href=\"/read.html?"+jsonData.list[i]+"\"><img src=\"/get_ic?"+jsonData.list[i]+"\" style='width: 180px;max-width: 180px;height: 255px;max-height: 255px;'/></a>";
+                    a = a + "<a href=\"/read.html?" + jsonData.list[i] + "\"><img src=\"/get_ic?" + jsonData.list[i] + "\" style='width: 180px;max-width: 180px;height: 255px;max-height: 255px;'/></a>";
                 }
                 document.getElementById("ls").innerHTML = a;
             }

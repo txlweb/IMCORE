@@ -92,7 +92,6 @@ public class ComicObject {
                 ) {
             System.out.println(data_frame_start_as);
             // 读取到指定位置，只要索引部分
-            int bs  = -"-LIST-ENDL".getBytes().length;
             int bytesRead;
             byte[] buffer = new byte[1024];
             while ((bytesRead = in.read(buffer)) != -1) {
@@ -103,7 +102,7 @@ public class ComicObject {
             }
             tmp.write((fileToBase64(FileName)+"\r").getBytes());
             FileOutputStream fos = new FileOutputStream(file+".txt");
-            InputStream is = new ByteArrayInputStream(tmp.toByteArray());
+            InputStream is = new ByteArrayInputStream(tmp.getBytes());
             while ((bytesRead = is.read(buffer)) != -1) {
                 fos.write(buffer, 0, bytesRead);
             }

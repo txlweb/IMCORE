@@ -24,24 +24,24 @@
     <pointer id="srollpoin" max="0" now="0"></pointer>
 </div>
 <script>
-    var frame_data;
+    let frame_data;
     document.getElementById("ls_bg").addEventListener("click",function (){
         document.getElementById("lst_ui").style.display = "none";
         document.getElementById("ls_bg").style.display = "none";
     })
     function load(fn){
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         xhr.open("GET", "/get_index?"+fn, true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                var jsonData = JSON.parse(xhr.responseText);
+                let jsonData = JSON.parse(xhr.responseText);
                 // 在这里格式化jsonData
                 console.log(jsonData); // 打印原始JSON数据
                 frame_data = jsonData;
                 //显示info
                 const l = document.getElementById("info")
                 l.innerHTML = ""
-                var p = ""
+                let p = ""
                 p=p+"<img src='/get_ic?"+fn+"' style='width: 180px;max-width: 180px;height: 255px;max-height: 255px;'>"
                 p=p+"<div style='display: flex;align-items: center;flex-direction: column;'><h3>"+frame_data.title+"</h3>"
                 p=p+"<a>作者:"+frame_data.author+"</a>"
@@ -73,9 +73,9 @@
         dis.innerHTML = add;
     }
     function loadimages(){
-        var childrens = document.getElementById("read").children;
-        var id = 0;
-        var lst = true;
+        let childrens = document.getElementById("read").children;
+        let id = 0;
+        let lst = true;
         for (let i = 0; i < childrens.length; i++) {
             if (childrens[i].tagName == 'IMG' || childrens[i].tagName == 'img') {
                 id++;
@@ -90,12 +90,12 @@
 
     function InitPoin(main) {
         if (!main)return;
-        var max = parseInt(main.getAttribute('max')); //获取自定义参数-max(最大值)
-        var now = parseInt(main.getAttribute('now')); //获取自定义参数-now(当前值)
+        let max = parseInt(main.getAttribute('max')); //获取自定义参数-max(最大值)
+        let now = parseInt(main.getAttribute('now')); //获取自定义参数-now(当前值)
         main.innerHTML = '<div class="poinmain" id="poinmain"></div>'; //向自定义标签内插入进度条(图1)
-        var poinbody = document.getElementById('poinmain'); //获取进度条对象
+        let poinbody = document.getElementById('poinmain'); //获取进度条对象
         poinbody.style.width = main.clientWidth * (now / max); //设置进度条宽度
-        var poins = now / max * 100; //计算百分比
+        let poins = now / max * 100; //计算百分比
         poinbody.innerHTML = poins.toFixed(2) + '%'; //显示进度
         main.innerHTML = main.innerHTML + '<t class="pointext">' + now + '/' + max + '</t>';
         //注册监听事件

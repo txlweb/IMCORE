@@ -91,25 +91,25 @@ class RequestHandler implements Runnable {
                 if(o.open(a[0])){ sendText(out,"!! ERROR !!");return;}
                 //PRE_JSON
                 List<ComicPage> p = o.GetIndex();
-                String r = "{";
+                StringBuilder r = new StringBuilder("{");
                 ComicINFO inf = o.GetInfo();
-                r=r+"\"title\":\""+inf.getTittle()+"\",";
-                r=r+"\"info\":\""+inf.getProfile()+"\",";
-                r=r+"\"author\":\""+inf.getAuthor()+"\",";
-                r = r+"\"data\":[";
+                r.append("\"title\":\"").append(inf.getTittle()).append("\",");
+                r.append("\"info\":\"").append(inf.getProfile()).append("\",");
+                r.append("\"author\":\"").append(inf.getAuthor()).append("\",");
+                r.append("\"data\":[");
                 //System.out.println(p.size());
                 for (ComicPage comicPage : p) {
-                    r = r + "{\"title\":\""+comicPage.getTitle()+ "\",\"data\":[";
+                    r.append("{\"title\":\"").append(comicPage.getTitle()).append("\",\"data\":[");
                     for (int j = 0; j < comicPage.size(); j++) {
-                        r=r+"\"/get_im?"+a[0]+"&"+(j+1)+"\",";
+                        r.append("\"/get_im?").append(a[0]).append("&").append(j + 1).append("\",");
                     }
-                    r=r.substring(0,r.length()-1);
-                    r=r+"]},";
+                    r = new StringBuilder(r.substring(0, r.length() - 1));
+                    r.append("]},");
                 }
-                r=r.substring(0,r.length()-1);
-                r=r+"]}";
-                r=r.replace("\\","\\\\");
-                sendText(out,r);
+                r = new StringBuilder(r.substring(0, r.length() - 1));
+                r.append("]}");
+                r = new StringBuilder(r.toString().replace("\\", "\\\\"));
+                sendText(out, r.toString());
                 return;
             }
             if(path.contains("/build.html")) {
@@ -157,10 +157,10 @@ class RequestHandler implements Runnable {
                             .map(Path::toAbsolutePath) // 转换为绝对路径
                             .map(Path::toString) // 转换为字符串
                             .collect(Collectors.toList()); // 收集到列表中
-                    for (int i = 0; i < filePaths.size(); i++) {
-                        if (filePaths.get(i).contains(".zip") || filePaths.get(i).contains(".ZIP") && !(filePaths.get(i).contains(".CEIP") || filePaths.get(i).contains(".ceip"))){
-                            if(!new File(filePaths.get(i)+".CEIP").isFile()) {
-                                ComicMake.auto_make(filePaths.get(i) + ".CEIP", filePaths.get(i), settings.tmp_path);
+                    for (String filePath : filePaths) {
+                        if (filePath.contains(".zip") || filePath.contains(".ZIP") && !(filePath.contains(".CEIP") || filePath.contains(".ceip"))) {
+                            if (!new File(filePath + ".CEIP").isFile()) {
+                                ComicMake.auto_make(filePath + ".CEIP", filePath, settings.tmp_path);
                             }
                         }
                     }
@@ -181,8 +181,8 @@ class RequestHandler implements Runnable {
                             .map(Path::toAbsolutePath) // 转换为绝对路径
                             .map(Path::toString) // 转换为字符串
                             .collect(Collectors.toList()); // 收集到列表中
-                    for (int i = 0; i < filePaths.size(); i++) {
-                        r=r+"\""+filePaths.get(i)+"\",";
+                    for (String filePath : filePaths) {
+                        r = r + "\"" + filePath + "\",";
                     }
                     r=r.substring(0,r.length()-1);
                 } catch (IOException e) {
@@ -225,18 +225,9 @@ class RequestHandler implements Runnable {
                             .map(Path::toAbsolutePath) // 转换为绝对路径
                             .map(Path::toString) // 转换为字符串
                             .collect(Collectors.toList()); // 收集到列表中
-//                    for (int i = 0; i < filePaths.size(); i++) {
-//                        if (filePaths.get(i).contains(".zip") || filePaths.get(i).contains(".ZIP") && !(filePaths.get(i).contains(".CEIP") || filePaths.get(i).contains(".ceip"))){
-//
-//                            if(!new File(filePaths.get(i)+".CEIP").isFile()) {
-//                                ComicMake.auto_make(filePaths.get(i) + ".CEIP", filePaths.get(i), settings.tmp_path);
-//                            }
-//                            //filePaths.add(filePaths.get(i)+".CEIP");
-//                        }
-//                    }
-                    for (int i = 0; i < filePaths.size(); i++) {
-                        if (filePaths.get(i).contains(".CEIP") || filePaths.get(i).contains(".ceip")){
-                            r=r+"\""+filePaths.get(i)+"\",";
+                    for (String filePath : filePaths) {
+                        if (filePath.contains(".CEIP") || filePath.contains(".ceip")) {
+                            r = r + "\"" + filePath + "\",";
                         }
                     }
                     r=r.substring(0,r.length()-1);

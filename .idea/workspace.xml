@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5cab1c67-66f5-4762-95b4-474ec4817563" name="更改" comment="...">
-      <change afterPath="$PROJECT_DIR$/make.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.html" beforeDir="false" afterPath="$PROJECT_DIR$/build.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/read.html" beforeDir="false" afterPath="$PROJECT_DIR$/read.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HTTP_SERVER.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HTTP_SERVER.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/textreader/comic/ComicMake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/textreader/comic/ComicMake.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/textreader/comic/ComicObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/textreader/comic/ComicObject.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +31,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -55,6 +61,7 @@
     "project.structure.last.edited": "项目",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "vue.rearranger.settings.migration": "true",
     "应用程序.ComicMake.executor": "Run",
     "应用程序.Main.executor": "Run",
@@ -74,7 +81,7 @@
       <recent name="C:\Users\IDlike\IdeaProjects\IMCORE\rom" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.ComicMake">
+  <component name="RunManager" selected="应用程序.Main">
     <configuration name="ComicMake" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.textreader.comic.ComicMake" />
       <module name="IMCORE" />
@@ -104,8 +111,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.ComicMake" />
         <item itemvalue="应用程序.Main" />
+        <item itemvalue="应用程序.ComicMake" />
         <item itemvalue="应用程序.test" />
       </list>
     </recent_temporary>
@@ -146,7 +153,10 @@
       <workItem from="1717565442003" duration="2427000" />
       <workItem from="1717570833806" duration="186000" />
       <workItem from="1717572377492" duration="646000" />
-      <workItem from="1717577571940" duration="946000" />
+      <workItem from="1717577571940" duration="3093000" />
+      <workItem from="1717746506687" duration="24000" />
+      <workItem from="1717801437281" duration="48000" />
+      <workItem from="1717801810960" duration="441000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <option name="closed" value="true" />
@@ -188,7 +198,23 @@
       <option name="project" value="LOCAL" />
       <updated>1717508223850</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="...">
+      <option name="closed" value="true" />
+      <created>1717578832207</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717578832207</updated>
+    </task>
+    <task id="LOCAL-00007" summary="...">
+      <option name="closed" value="true" />
+      <created>1717801853607</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1717801853607</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
