@@ -80,36 +80,4 @@ public class ComicObject {
         }
         return !start;
     }
-    public static String fileToBase64(String filePath) throws IOException {
-        byte[] fileContent = Files.readAllBytes(Paths.get(filePath));
-        return Base64.getEncoder().encodeToString(fileContent);
-    }
-
-    private boolean append_img(String FileName){
-        try(
-                ByteOutputStream tmp = new ByteOutputStream();
-                FileInputStream in = new FileInputStream(file);
-                ) {
-            System.out.println(data_frame_start_as);
-            // 读取到指定位置，只要索引部分
-            int bytesRead;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = in.read(buffer)) != -1) {
-                tmp.write(buffer, 0, bytesRead);
-            }
-            while ((bytesRead = in.read(buffer)) != -1) {
-                tmp.write(buffer, 0, bytesRead);
-            }
-            tmp.write((fileToBase64(FileName)+"\r").getBytes());
-            FileOutputStream fos = new FileOutputStream(file+".txt");
-            InputStream is = new ByteArrayInputStream(tmp.getBytes());
-            while ((bytesRead = is.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
-            }
-            fos.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return true;
-    }
 }
